@@ -58,9 +58,9 @@
 
 <div id="error"></div>
 
-<div class="toolbar">
-  <button id="exportBtn">Export BPMN</button>
-</div>
+<!--<div class="toolbar">-->
+<!--  <button id="exportBtn">Export BPMN</button>-->
+<!--</div>-->
 
 <div id="canvas"></div>
 
@@ -109,24 +109,24 @@
             })
             .catch(showError);
 
-    document.getElementById('exportBtn').addEventListener('click', async function () {
-      try {
-        const result = await modeler.saveXML({ format: true });
-        const xml = result.xml;
-
-        const blob = new Blob([xml], { type: 'application/xml' });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'diagram.bpmn';
-        a.click();
-
-        URL.revokeObjectURL(url);
-      } catch (error) {
-        showError(error);
-      }
-    });
+    // document.getElementById('exportBtn').addEventListener('click', async function () {
+    //   try {
+    //     const result = await modeler.saveXML({ format: true });
+    //     const xml = result.xml;
+    //
+    //     const blob = new Blob([xml], { type: 'application/xml' });
+    //     const url = URL.createObjectURL(blob);
+    //
+    //     const a = document.createElement('a');
+    //     a.href = url;
+    //     a.download = 'diagram.bpmn';
+    //     a.click();
+    //
+    //     URL.revokeObjectURL(url);
+    //   } catch (error) {
+    //     showError(error);
+    //   }
+    // });
   } catch (error) {
     showError(error);
   }
