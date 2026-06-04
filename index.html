@@ -1,136 +1,147 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="el">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8" />-->
+<!--  <title>BPMN Editor</title>-->
+
+<!--  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/diagram-js.css">-->
+<!--  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-js.css">-->
+<!--  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-font/css/bpmn.css">-->
+
+<!--  <style>-->
+<!--    html,-->
+<!--    body {-->
+<!--      height: 100%;-->
+<!--      margin: 0;-->
+<!--      overflow: hidden;-->
+<!--      font-family: Arial, sans-serif;-->
+<!--    }-->
+
+<!--    #canvas {-->
+<!--      width: 100vw;-->
+<!--      height: 100vh;-->
+<!--    }-->
+
+<!--    #error {-->
+<!--      display: none;-->
+<!--      position: absolute;-->
+<!--      top: 20px;-->
+<!--      left: 20px;-->
+<!--      right: 20px;-->
+<!--      z-index: 9999;-->
+<!--      background: #ffe5e5;-->
+<!--      border: 1px solid #cc0000;-->
+<!--      padding: 12px;-->
+<!--      color: #600;-->
+<!--      font-size: 14px;-->
+<!--    }-->
+
+<!--    .toolbar {-->
+<!--      position: absolute;-->
+<!--      top: 12px;-->
+<!--      right: 12px;-->
+<!--      z-index: 100;-->
+<!--      background: white;-->
+<!--      border: 1px solid #ddd;-->
+<!--      border-radius: 6px;-->
+<!--      padding: 8px;-->
+<!--      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);-->
+<!--    }-->
+
+<!--    button {-->
+<!--      padding: 6px 12px;-->
+<!--      cursor: pointer;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div id="error"></div>-->
+
+<!--&lt;!&ndash;<div class="toolbar">&ndash;&gt;-->
+<!--&lt;!&ndash;  <button id="exportBtn">Export BPMN</button>&ndash;&gt;-->
+<!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+<!--<div id="canvas"></div>-->
+
+<!--<script src="https://unpkg.com/bpmn-js@17.11.1/dist/bpmn-modeler.production.min.js"></script>-->
+
+<!--<script>-->
+<!--  const errorBox = document.getElementById('error');-->
+
+<!--  function showError(error) {-->
+<!--    console.error(error);-->
+<!--    errorBox.style.display = 'block';-->
+<!--    errorBox.textContent = error.message || String(error);-->
+<!--  }-->
+
+<!--  const initialDiagram = `<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<bpmn:definitions-->
+<!--  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"-->
+<!--  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"-->
+<!--  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"-->
+<!--  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"-->
+<!--  id="Definitions_1"-->
+<!--  targetNamespace="http://bpmn.io/schema/bpmn">-->
+
+<!--  <bpmn:process id="Process_1" isExecutable="false">-->
+<!--    <bpmn:startEvent id="StartEvent_1" name="Start" />-->
+<!--  </bpmn:process>-->
+
+<!--  <bpmndi:BPMNDiagram id="BPMNDiagram_1">-->
+<!--    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">-->
+<!--      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">-->
+<!--        <dc:Bounds x="180" y="120" width="36" height="36" />-->
+<!--      </bpmndi:BPMNShape>-->
+<!--    </bpmndi:BPMNPlane>-->
+<!--  </bpmndi:BPMNDiagram>-->
+<!--</bpmn:definitions>`;-->
+
+<!--  try {-->
+<!--    const modeler = new BpmnJS({-->
+<!--      container: '#canvas'-->
+<!--    });-->
+
+<!--    modeler.importXML(initialDiagram)-->
+<!--            .then(function () {-->
+<!--              modeler.get('canvas').zoom('fit-viewport');-->
+<!--            })-->
+<!--            .catch(showError);-->
+
+<!--    // document.getElementById('exportBtn').addEventListener('click', async function () {-->
+<!--    //   try {-->
+<!--    //     const result = await modeler.saveXML({ format: true });-->
+<!--    //     const xml = result.xml;-->
+<!--    //-->
+<!--    //     const blob = new Blob([xml], { type: 'application/xml' });-->
+<!--    //     const url = URL.createObjectURL(blob);-->
+<!--    //-->
+<!--    //     const a = document.createElement('a');-->
+<!--    //     a.href = url;-->
+<!--    //     a.download = 'diagram.bpmn';-->
+<!--    //     a.click();-->
+<!--    //-->
+<!--    //     URL.revokeObjectURL(url);-->
+<!--    //   } catch (error) {-->
+<!--    //     showError(error);-->
+<!--    //   }-->
+<!--    // });-->
+<!--  } catch (error) {-->
+<!--    showError(error);-->
+<!--  }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
 <!DOCTYPE html>
-<html lang="el">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>BPMN Editor</title>
-
-  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/diagram-js.css">
-  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-js.css">
-  <link rel="stylesheet" href="https://unpkg.com/bpmn-js@17.11.1/dist/assets/bpmn-font/css/bpmn.css">
-
-  <style>
-    html,
-    body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
-      font-family: Arial, sans-serif;
-    }
-
-    #canvas {
-      width: 100vw;
-      height: 100vh;
-    }
-
-    #error {
-      display: none;
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      right: 20px;
-      z-index: 9999;
-      background: #ffe5e5;
-      border: 1px solid #cc0000;
-      padding: 12px;
-      color: #600;
-      font-size: 14px;
-    }
-
-    .toolbar {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      z-index: 100;
-      background: white;
-      border: 1px solid #ddd;
-      border-radius: 6px;
-      padding: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    button {
-      padding: 6px 12px;
-      cursor: pointer;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <title>Iframe Test</title>
 </head>
 <body>
-
-<div id="error"></div>
-
-<!--<div class="toolbar">-->
-<!--  <button id="exportBtn">Export BPMN</button>-->
-<!--</div>-->
-
-<div id="canvas"></div>
-
-<script src="https://unpkg.com/bpmn-js@17.11.1/dist/bpmn-modeler.production.min.js"></script>
-
-<script>
-  const errorBox = document.getElementById('error');
-
-  function showError(error) {
-    console.error(error);
-    errorBox.style.display = 'block';
-    errorBox.textContent = error.message || String(error);
-  }
-
-  const initialDiagram = `<?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
-  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
-  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
-  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
-  id="Definitions_1"
-  targetNamespace="http://bpmn.io/schema/bpmn">
-
-  <bpmn:process id="Process_1" isExecutable="false">
-    <bpmn:startEvent id="StartEvent_1" name="Start" />
-  </bpmn:process>
-
-  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1">
-      <bpmndi:BPMNShape id="StartEvent_1_di" bpmnElement="StartEvent_1">
-        <dc:Bounds x="180" y="120" width="36" height="36" />
-      </bpmndi:BPMNShape>
-    </bpmndi:BPMNPlane>
-  </bpmndi:BPMNDiagram>
-</bpmn:definitions>`;
-
-  try {
-    const modeler = new BpmnJS({
-      container: '#canvas'
-    });
-
-    modeler.importXML(initialDiagram)
-            .then(function () {
-              modeler.get('canvas').zoom('fit-viewport');
-            })
-            .catch(showError);
-
-    // document.getElementById('exportBtn').addEventListener('click', async function () {
-    //   try {
-    //     const result = await modeler.saveXML({ format: true });
-    //     const xml = result.xml;
-    //
-    //     const blob = new Blob([xml], { type: 'application/xml' });
-    //     const url = URL.createObjectURL(blob);
-    //
-    //     const a = document.createElement('a');
-    //     a.href = url;
-    //     a.download = 'diagram.bpmn';
-    //     a.click();
-    //
-    //     URL.revokeObjectURL(url);
-    //   } catch (error) {
-    //     showError(error);
-    //   }
-    // });
-  } catch (error) {
-    showError(error);
-  }
-</script>
-
+<h1>UiPath iframe test works</h1>
 </body>
 </html>
