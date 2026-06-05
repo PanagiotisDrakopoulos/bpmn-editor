@@ -123,24 +123,48 @@
         const result = await modeler.saveXML({ format: true });
         const xml = result.xml;
 
-        // 2. Μετατροπή του XML σε Base64 για να «ξεγελάσουμε» τους περιορισμούς του iFrame
-        const base64Data = btoa(unescape(encodeURIComponent(xml)));
-        const dataUrl = 'data:application/xml;base64,' + base64Data;
+        // 2. Ανοίγουμε ένα νέο κενό παράθυρο/tab στον browser
+        const newWindow = window.open();
 
-        // 3. Δημιουργία εικονικού συνδέσμου και προσομοίωση κλικ για download
-        const downloadLink = document.createElement('a');
-        downloadLink.href = dataUrl;
-        downloadLink.download = 'diagram.bpmn';
-
-        // Απαραίτητο για ορισμένους browsers όταν τρέχουν μέσα σε iFrames
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+        if (newWindow) {
+          // 3. Γράφουμε το XML απευθείας στο νέο παράθυρο, ορίζοντας το σωστό content type
+          newWindow.document.open("application/xml", "replace");
+          newWindow.document.write(xml);
+          newWindow.document.close();
+        } else {
+          // Αν ο browser μπλοκάρει τα pop-ups, ειδοποιούμε τον χρήστη
+          alert('Παρακαλώ επιτρέψτε τα pop-ups για αυτή τη σελίδα ώστε να εξαχθεί το BPMN!');
+        }
 
       } catch (error) {
         showError(error);
       }
     });
+
+    // document.getElementById('exportBtn').addEventListener('click', async function () {
+    //   try {
+    //     // 1. Παίρνουμε το XML από τον BPMN Modeler
+    //     const result = await modeler.saveXML({ format: true });
+    //     const xml = result.xml;
+    //
+    //     // 2. Μετατροπή του XML σε Base64 για να «ξεγελάσουμε» τους περιορισμούς του iFrame
+    //     const base64Data = btoa(unescape(encodeURIComponent(xml)));
+    //     const dataUrl = 'data:application/xml;base64,' + base64Data;
+    //
+    //     // 3. Δημιουργία εικονικού συνδέσμου και προσομοίωση κλικ για download
+    //     const downloadLink = document.createElement('a');
+    //     downloadLink.href = dataUrl;
+    //     downloadLink.download = 'diagram.bpmn';
+    //
+    //     // Απαραίτητο για ορισμένους browsers όταν τρέχουν μέσα σε iFrames
+    //     document.body.appendChild(downloadLink);
+    //     downloadLink.click();
+    //     document.body.removeChild(downloadLink);
+    //
+    //   } catch (error) {
+    //     showError(error);
+    //   }
+    // });
 
     // document.getElementById('exportBtn').addEventListener('click', async function () {
     //   try {
