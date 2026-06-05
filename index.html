@@ -123,12 +123,19 @@
         const result = await modeler.saveXML({ format: true });
         const xml = result.xml;
 
-        // 2. Στέλνουμε το XML στο parent window (τη σελίδα που φιλοξενεί το iFrame)
-        // Το '*' σημαίνει ότι επιτρέπουμε την αποστολή σε οποιοδήποτε target origin (μπορείτε να βάλετε το συγκεκριμένο URL αν θέλετε extra ασφάλεια)
-        window.parent.postMessage({
-          action: 'exportBPMN',
-          xmlData: xml
-        }, '*');
+        // 2. Μετατροπή του XML σε Base64 για να «ξεγελάσουμε» τους περιορισμούς του iFrame
+        const base64Data = btoa(unescape(encodeURIComponent(xml)));
+        const dataUrl = 'data:application/xml;base64,' + base64Data;
+
+        // 3. Δημιουργία εικονικού συνδέσμου και προσομοίωση κλικ για download
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = 'diagram.bpmn';
+
+        // Απαραίτητο για ορισμένους browsers όταν τρέχουν μέσα σε iFrames
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
 
       } catch (error) {
         showError(error);
