@@ -106,13 +106,13 @@
     modeler.importXML(initialDiagram)
             .then(function () {
               // --- ΕΔΩ ΕΓΙΝΕ Η ΔΙΟΡΘΩΣΗ ---
-              setTimeout(() => {
-                try {
-                  modeler.get('canvas').zoom('fit-viewport');
-                } catch (zoomError) {
-                  console.warn("Το αυτόματο zoom απέτυχε επειδή ο καμβάς δεν έχει ακόμα διαστάσεις στο DOM:", zoomError);
-                }
-              }, 50);
+              // setTimeout(() => {
+              //   try {
+              //     modeler.get('canvas').zoom('fit-viewport');
+              //   } catch (zoomError) {
+              //     console.warn("Το αυτόματο zoom απέτυχε επειδή ο καμβάς δεν έχει ακόμα διαστάσεις στο DOM:", zoomError);
+              //   }
+              // }, 50);
               // -----------------------------
             })
             .catch(showError);
