@@ -119,22 +119,40 @@
 
     document.getElementById('exportBtn').addEventListener('click', async function () {
       try {
+        // 1. Παίρνουμε το XML από τον BPMN Modeler
         const result = await modeler.saveXML({ format: true });
         const xml = result.xml;
 
-        const blob = new Blob([xml], { type: 'application/xml' });
-        const url = URL.createObjectURL(blob);
+        // 2. Στέλνουμε το XML στο parent window (τη σελίδα που φιλοξενεί το iFrame)
+        // Το '*' σημαίνει ότι επιτρέπουμε την αποστολή σε οποιοδήποτε target origin (μπορείτε να βάλετε το συγκεκριμένο URL αν θέλετε extra ασφάλεια)
+        window.parent.postMessage({
+          action: 'exportBPMN',
+          xmlData: xml
+        }, '*');
 
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'diagram.bpmn';
-        a.click();
-
-        URL.revokeObjectURL(url);
       } catch (error) {
         showError(error);
       }
     });
+
+    // document.getElementById('exportBtn').addEventListener('click', async function () {
+    //   try {
+    //     const result = await modeler.saveXML({ format: true });
+    //     const xml = result.xml;
+    //
+    //     const blob = new Blob([xml], { type: 'application/xml' });
+    //     const url = URL.createObjectURL(blob);
+    //
+    //     const a = document.createElement('a');
+    //     a.href = url;
+    //     a.download = 'diagram.bpmn';
+    //     a.click();
+    //
+    //     URL.revokeObjectURL(url);
+    //   } catch (error) {
+    //     showError(error);
+    //   }
+    // });
   } catch (error) {
     showError(error);
   }
